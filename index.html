@@ -7,6 +7,7 @@
   <style>
     body {
       height: 100vh;
+      margin: 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,71 +17,95 @@
 
     .card {
       background: white;
-      padding: 40px 50px;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      padding: 60px 70px;
+      border-radius: 30px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
       text-align: center;
       position: relative;
+      width: 90vw;
+      max-width: 500px;
     }
 
     h1 {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
       color: #333;
+      font-size: 28px;
     }
 
     .buttons {
       position: relative;
-      height: 80px;
+      height: 160px;
+      width: 100%;
     }
 
     button {
-      padding: 12px 28px;
-      font-size: 16px;
-      border-radius: 25px;
+      padding: 18px 40px;
+      font-size: 18px;
+      border-radius: 40px;
       border: none;
       cursor: pointer;
       position: absolute;
-      transition: all 0.2s ease;
+      transition: transform 0.15s ease;
     }
 
     #yes {
       background-color: #4CAF50;
       color: white;
-      left: 20px;
+      left: 20%;
+      top: 40px;
     }
 
     #no {
       background-color: #f44336;
       color: white;
-      left: 140px;
+      left: 55%;
+      top: 40px;
     }
 
     .message {
-      margin-top: 25px;
-      font-size: 20px;
+      margin-top: 30px;
+      font-size: 22px;
       color: #4CAF50;
       font-weight: bold;
       display: none;
+    }
+
+    .gif {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .gif img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 20px;
     }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>Do you love me? 💕</h1>
+
     <div class="buttons">
       <button id="yes">Yes</button>
       <button id="no">No</button>
     </div>
+
     <div class="message" id="message">Great choice 😌❤️</div>
+
+    <div class="gif" id="gif">
+      <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="Funny Love Gif" />
+    </div>
   </div>
 
   <script>
     const noBtn = document.getElementById('no');
     const yesBtn = document.getElementById('yes');
     const message = document.getElementById('message');
+    const gif = document.getElementById('gif');
     const container = document.querySelector('.buttons');
 
-    noBtn.addEventListener('mouseenter', () => {
+    function moveNoButton() {
       const maxX = container.offsetWidth - noBtn.offsetWidth;
       const maxY = container.offsetHeight - noBtn.offsetHeight;
 
@@ -89,10 +114,20 @@
 
       noBtn.style.left = randomX + 'px';
       noBtn.style.top = randomY + 'px';
+    }
+
+    // Desktop hover
+    noBtn.addEventListener('mouseenter', moveNoButton);
+
+    // Mobile tap
+    noBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      moveNoButton();
     });
 
     yesBtn.addEventListener('click', () => {
       message.style.display = 'block';
+      gif.style.display = 'block';
     });
   </script>
 </body>
